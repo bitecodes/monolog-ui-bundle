@@ -1,0 +1,27 @@
+{
+  "name": "bitecodes/monolog-ui-bundle",
+  "description": "Monolog UI",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas Uhlmann",
+      "email": "thomas@bite.codes"
+    }
+  ],
+  "require": {
+    "doctrine/doctrine-bundle": "^1.6",
+    "symfony/symfony": "^3.0",
+    "symfony/monolog-bundle": "^3.0",
+    "sensio/framework-extra-bundle": "^3.0",
+    "twig/twig": "^1.0||^2.0",
+    "pagerfanta/pagerfanta": "^1.0",
+    "limenius/react-renderer": "^0.11.1"
+  },
+  "autoload": {
+    "psr-0": {
+      "BiteCodes\\MonologUIBundle\\": "server"
+    }
+  },
+  "target-dir": "BiteCodes/MonologUIBundle"
+}

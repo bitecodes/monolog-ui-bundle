@@ -1,0 +1,8 @@
+bite_codes_monolog_ui_frontend:
+    type: annotation
+    resource: '@BiteCodesMonologUIBundle/Controller/FrontendController.php'
+
+bite_codes_monolog_ui_logs:
+    type: annotation
+    resource: '@BiteCodesMonologUIBundle/Controller/LogApiController.php'
+    prefix: api
