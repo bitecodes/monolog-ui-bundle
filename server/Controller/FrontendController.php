@@ -26,7 +26,7 @@ class FrontendController extends Controller
         $twig->addExtension($ext);
 
         $html = $twig->render('@BiteCodesMonologUI/monolog-ui.html.twig', [
-            'serverUrl' => json_encode('http://localhost:8000/api'),
+            'serverUrl' => json_encode($this->generateUrl('bitecodes_monologui_frontend_show')),
             'channels' => json_encode($this->getParameter('bitecodes_monolog_ui.channels')),
         ]);
 

@@ -17,7 +17,7 @@ export default class LogDetail extends Component {
     }
 
     componentDidMount() {
-        const url = this.context.serverUrl + '/' + this.props.match.params.id;
+        const url = this.context.serverUrl + this.props.match.params.id;
 
         Observable
             .ajax(url)

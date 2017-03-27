@@ -12,21 +12,26 @@ export class App extends Component {
     getChildContext() {
         const context = {
             channels: JSON.parse(this.props.channels),
-            serverUrl: JSON.parse(this.props.serverUrl)
+            serverUrl: JSON.parse(this.props.serverUrl) + 'api/'
         };
 
         return context;
     }
 
     render() {
+        const serverUrl = JSON.parse(this.props.serverUrl);
+        const parser = document.createElement('a');
+        parser.href = serverUrl;
+        parser.pathname;
+
         return (
             <LocaleProvider locale={enUS}>
                 <Router>
                     <Layout style={{minHeight: '100%'}}>
                         <Content style={{padding: '0 50px'}}>
                             <Layout style={{background: '#fff'}}>
-                                <Route breadcrumbName=":id" path="/:id" component={LogDetail}/>
-                                <Route breadcrumbName="Home" exact path="/" component={LogList}/>
+                                <Route breadcrumbName=":id" path={parser.pathname + ':id'} component={LogDetail}/>
+                                <Route breadcrumbName="Home" exact path={parser.pathname} component={LogList}/>
                             </Layout>
                         </Content>
                     </Layout>
