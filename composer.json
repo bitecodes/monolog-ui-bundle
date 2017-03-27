@@ -19,9 +19,8 @@
     "limenius/react-renderer": "^0.11.1"
   },
   "autoload": {
-    "psr-0": {
+    "psr-4": {
       "BiteCodes\\MonologUIBundle\\": "server"
     }
-  },
-  "target-dir": "BiteCodes/MonologUIBundle"
+  }
 }
