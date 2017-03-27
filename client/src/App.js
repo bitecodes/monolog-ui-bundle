@@ -12,6 +12,7 @@ export class App extends Component {
     getChildContext() {
         const context = {
             channels: JSON.parse(this.props.channels),
+            baseUrl: JSON.parse(this.props.serverUrl),
             serverUrl: JSON.parse(this.props.serverUrl) + 'api/'
         };
 
@@ -22,7 +23,6 @@ export class App extends Component {
         const serverUrl = JSON.parse(this.props.serverUrl);
         const parser = document.createElement('a');
         parser.href = serverUrl;
-        parser.pathname;
 
         return (
             <LocaleProvider locale={enUS}>
@@ -43,6 +43,7 @@ export class App extends Component {
 
 App.childContextTypes = {
     channels: React.PropTypes.array,
+    baseUrl: React.PropTypes.string,
     serverUrl: React.PropTypes.string
 };
 

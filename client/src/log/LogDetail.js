@@ -41,10 +41,12 @@ export default class LogDetail extends Component {
     render() {
         const log = this.state.log;
         const logDate = log ? moment.unix(log.date) : null;
+        const parser = document.createElement('a');
+        parser.href = this.context.baseUrl;
 
         return (
             <Spin spinning={this.state.loading}>
-                <Link to='/'>
+                <Link to={parser.pathname}>
                     <Button icon="left">Back</Button>
                 </Link>
                 { log ? (
@@ -102,5 +104,6 @@ export default class LogDetail extends Component {
 }
 
 LogDetail.contextTypes = {
+    baseUrl: React.PropTypes.string,
     serverUrl: React.PropTypes.string
 };

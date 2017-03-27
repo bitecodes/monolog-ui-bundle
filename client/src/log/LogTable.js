@@ -108,9 +108,12 @@ export default class LogTable extends Component {
             key: 'action',
             width: '15%',
             render: (text, record) => {
+                const parser = document.createElement('a');
+                parser.href = this.context.baseUrl;
+
                 return (
                     <span>
-                        <Link to={'/' + record.id}>Details</Link>
+                        <Link to={parser.pathname + record.id}>Details</Link>
                         <span className="ant-divider"/>
                         <Popconfirm
                             title={this.state.isGrouped ? "Delete this and all similar log entries?" : "Delete this log entry?"}
@@ -164,5 +167,6 @@ export default class LogTable extends Component {
 
 LogTable.contextTypes = {
     channels: React.PropTypes.array,
+    baseUrl: React.PropTypes.string,
     serverUrl: React.PropTypes.string,
 };
