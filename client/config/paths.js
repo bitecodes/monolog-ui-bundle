@@ -65,7 +65,7 @@ function getServedPath(appPackageJson) {
 
 // config after eject: we're in ./config/
 module.exports = {
-    appBuild: resolveApp('../MonologUIBundle/Resources/public'),
+    appBuild: resolveApp('../server/Resources/public'),
     appPublic: resolveApp('public'),
     appHtml: resolveApp('public/index.html'),
     appIndexJs: resolveApp('src/index.js'),
