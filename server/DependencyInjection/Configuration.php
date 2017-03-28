@@ -51,7 +51,7 @@ class Configuration implements ConfigurationInterface
             Logger::getLevelName(Logger::ALERT) => null,
             Logger::getLevelName(Logger::CRITICAL) => null,
             Logger::getLevelName(Logger::ERROR) => null,
-            Logger::getLevelName(Logger::WARNING) => null,
+            Logger::getLevelName(Logger::WARNING) => [],
             Logger::getLevelName(Logger::NOTICE) => [],
             Logger::getLevelName(Logger::INFO) => [],
             Logger::getLevelName(Logger::DEBUG) => [],
