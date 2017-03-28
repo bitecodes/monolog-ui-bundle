@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Jeremy Barthe <j.barthe@lexik.fr>
  */
-class SchemaCommand extends ContainerAwareCommand
+class SchemaCreateCommand extends ContainerAwareCommand
 {
     /**
      * {@inheritdoc}

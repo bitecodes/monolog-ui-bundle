@@ -4,13 +4,29 @@ services:
         arguments:
             - '@doctrine.dbal.monolog_connection'
             - '%bitecodes_monolog_ui.doctrine.table_name%'
-            - '%bitecodes_monolog_ui.logger.handles%'
+            - '@bite_codes_monolog_ui.service.log_config'
+        calls:
+            - [pushProcessor, ['@symfony.bridge.monolog.processor.web_processor']]
+            - [pushProcessor, ['@bite_codes_monolog_ui.processor.web_extended_processor']]
 
     bite_codes_monolog_ui.model.log_repository:
         class: BiteCodes\MonologUIBundle\Model\LogRepository
         arguments: ['@doctrine.dbal.monolog_connection', '%bitecodes_monolog_ui.doctrine.table_name%']
 
+    bite_codes_monolog_ui.service.log_config:
+        class: BiteCodes\MonologUIBundle\Service\LogConfig
+        arguments:
+            - '%bitecodes_monolog_ui.logger.handles%'
+
     monolog.processor.psr_log_message_processor:
         class: Monolog\Processor\PsrLogMessageProcessor
         tags:
             - { name: monolog.processor }
+
+    symfony.bridge.monolog.processor.web_processor:
+        class: Symfony\Bridge\Monolog\Processor\WebProcessor
+
+    bite_codes_monolog_ui.processor.web_extended_processor:
+        class: BiteCodes\MonologUIBundle\Processor\WebExtendedProcessor
+        arguments:
+            - '@request_stack'

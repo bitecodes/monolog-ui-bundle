@@ -22,5 +22,8 @@
     "psr-4": {
       "BiteCodes\\MonologUIBundle\\": "server"
     }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.0"
   }
 }

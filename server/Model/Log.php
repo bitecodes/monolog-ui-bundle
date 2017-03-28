@@ -56,6 +56,11 @@ class Log implements \JsonSerializable
      */
     protected $serverData;
 
+    /**
+     * @var array
+     */
+    protected $bodyData;
+
     public static function create(array $record)
     {
         $log = new self;
@@ -70,8 +75,8 @@ class Log implements \JsonSerializable
             ->setExtra(json_decode($record['extra'], true))
             ->setGetData(json_decode($record['http_get'], true))
             ->setPostData(json_decode($record['http_post'], true))
-            ->setServerData(json_decode($record['http_server']), true);
-
+            ->setServerData(json_decode($record['http_server']), true)
+            ->setBodyData($record['http_body']);
 
         return $log;
     }
@@ -276,6 +281,26 @@ class Log implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * @return array
+     */
+    public function getBodyData()
+    {
+        return $this->bodyData;
+    }
+
+    /**
+     * @param array $bodyData
+     *
+     * @return Log
+     */
+    public function setBodyData($bodyData)
+    {
+        $this->bodyData = $bodyData;
+
+        return $this;
+    }
+
     public function toArray()
     {
         $data = [];
@@ -293,7 +318,7 @@ class Log implements \JsonSerializable
         return [
             'id'         => $this->getId(),
             'channel'    => $this->getChannel(),
-            'level'      => (int) $this->getLevel(),
+            'level'      => (int)$this->getLevel(),
             'message'    => $this->getMessage(),
             'date'       => $this->getDate(),
             'context'    => $this->getContext(),

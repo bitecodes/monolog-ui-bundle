@@ -2,33 +2,16 @@
 
 namespace BiteCodes\MonologUIBundle\Processor;
 
+use Symfony\Component\HttpFoundation\RequestStack;
+
 class WebExtendedProcessor
 {
     /**
-     * @var array
+     * @param RequestStack $requestStack
      */
-    protected $serverData;
-
-    /**
-     * @var array
-     */
-    protected $postData;
-
-    /**
-     * @var array
-     */
-    protected $getData;
-
-    /**
-     * @param array $serverData
-     * @param array $postData
-     * @param array $getData
-     */
-    public function __construct(array $serverData = [], array $postData = [], array $getData = [])
+    public function __construct(RequestStack $requestStack)
     {
-        $this->serverData = $serverData ?: $_SERVER;
-        $this->postData = $postData ?: $_POST;
-        $this->getData = $getData ?: $_GET;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -38,15 +21,19 @@ class WebExtendedProcessor
      */
     public function __invoke(array $record)
     {
+
+        $request = $this->requestStack->getMasterRequest();
+
         // skip processing if for some reason request data
         // is not present (CLI or wonky SAPIs)
-        if (!isset($this->serverData['REQUEST_URI'])) {
+        if (!$request->server->has('REQUEST_URI')) {
             return $record;
         }
 
-        $record['http_server'] = $this->serverData;
-        $record['http_post'] = $this->postData;
-        $record['http_get'] = $this->getData;
+        $record['http_server'] = $request ? $request->server->all() : [];
+        $record['http_post'] = $request ? $request->request->all() : [];
+        $record['http_get'] = $request ? $request->query->all() : [];
+        $record['http_body'] = $request ? $request->getContent() : [];
 
         return $record;
     }

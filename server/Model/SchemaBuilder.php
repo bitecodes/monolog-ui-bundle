@@ -39,6 +39,7 @@ class SchemaBuilder
         $entryTable->addColumn('http_server', 'json_array');
         $entryTable->addColumn('http_post', 'json_array');
         $entryTable->addColumn('http_get', 'json_array');
+        $entryTable->addColumn('http_body', 'text');
         $entryTable->setPrimaryKey(['id']);
     }
 

@@ -95,10 +95,14 @@ export default class LogDetail extends Component {
                                 <td>Extra</td>
                                 <td>{this.renderObject(log.extra)}</td>
                             </tr>
+                            <tr>
+                                <td>Body</td>
+                                <td>{log.bodyData}</td>
+                            </tr>
                             </tbody>
                         </table>
                     ) : null
-                    };
+                    }
                 </Layout.Content>
             </Spin>
         )
