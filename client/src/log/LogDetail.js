@@ -3,6 +3,7 @@ import {Observable} from "rxjs/bundles/Rx";
 import {Button, Layout, Spin} from 'antd';
 import {Link} from 'react-router-dom';
 import LogLevelTag from './LogLevelTag';
+import TreeObject from './TreeObject';
 import moment from 'moment';
 
 export default class LogDetail extends Component {
@@ -23,19 +24,6 @@ export default class LogDetail extends Component {
             .ajax(url)
             .map((ajax) => ajax.response.data)
             .subscribe(log => this.setState({log, loading: false}));
-    }
-
-    renderObject(obj) {
-        if (Object.keys(obj).length === 0) {
-            return <span>-</span>
-        }
-
-        let data = [];
-        for (let key in obj) {
-            data.push(<dt key={key + '_key'}>{key}</dt>);
-            data.push(<dd key={key + '_data'}>{obj[key]}</dd>);
-        }
-        return <dl>{data}</dl>;
     }
 
     render() {
@@ -77,23 +65,33 @@ export default class LogDetail extends Component {
                             </tr>
                             <tr>
                                 <td>POST</td>
-                                <td>{this.renderObject(log.postData)}</td>
+                                <td>
+                                    <TreeObject item={log.postData}></TreeObject>
+                                </td>
                             </tr>
                             <tr>
                                 <td>GET</td>
-                                <td>{this.renderObject(log.getData)}</td>
+                                <td>
+                                    <TreeObject item={log.getData}></TreeObject>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Server</td>
-                                <td>{this.renderObject(log.serverData)}</td>
+                                <td>
+                                    <TreeObject item={log.serverData}></TreeObject>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Context</td>
-                                <td>{this.renderObject(log.context)}</td>
+                                <td>
+                                    <TreeObject item={log.context}></TreeObject>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Extra</td>
-                                <td>{this.renderObject(log.extra)}</td>
+                                <td>
+                                    <TreeObject item={log.extra}></TreeObject>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Body</td>

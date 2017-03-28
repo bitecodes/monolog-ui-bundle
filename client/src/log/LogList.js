@@ -30,6 +30,7 @@ export default class LogList extends Component {
         this.search$
             .switchMap(searchParams => {
                 const url = this.context.serverUrl + '?' + this.encodeQueryData(searchParams);
+                console.log(url);
                 this.setState({loading: true});
                 return Observable
                     .ajax(url)

@@ -42,13 +42,10 @@ table.log-detail th {
     background: #f7f7f7;
 }
 
-dt {
-    float: left;
-    clear: left;
-    font-weight: bold;
+.ant-tree li {
+    white-space: normal;
 }
 
-dd {
-    margin: 0 0 0 310px;
-    padding: 0 0 0.5em 0;
+.ant-tree li span.ant-tree-switcher {
+    width: 0;
 }

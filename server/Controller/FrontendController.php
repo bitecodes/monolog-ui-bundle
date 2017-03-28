@@ -27,9 +27,18 @@ class FrontendController extends Controller
 
         $html = $twig->render('@BiteCodesMonologUI/monolog-ui.html.twig', [
             'serverUrl' => json_encode($this->generateUrl('bitecodes_monologui_frontend_show')),
-            'channels' => json_encode($this->getParameter('bitecodes_monolog_ui.channels')),
+            'channels'  => json_encode($this->getParameter('bitecodes_monolog_ui.channels')),
         ]);
 
         return new Response($html);
+    }
+
+    /**
+     * @Route("/{id}")
+     * @Method("GET")
+     */
+    public function detailAction()
+    {
+        return $this->forward('BiteCodesMonologUIBundle:Frontend:show');
     }
 }
