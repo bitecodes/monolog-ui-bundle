@@ -3,11 +3,10 @@
 namespace BiteCodes\MonologUIBundle\Handler;
 
 use BiteCodes\MonologUIBundle\Formatter\NormalizerFormatter;
-use BiteCodes\MonologUIBundle\Processor\WebExtendedProcessor;
+use BiteCodes\MonologUIBundle\Service\LogConfig;
 use Doctrine\DBAL\Connection;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
-use Symfony\Bridge\Monolog\Processor\WebProcessor;
 
 class DoctrineDBALHandler extends AbstractProcessingHandler
 {
@@ -21,32 +20,35 @@ class DoctrineDBALHandler extends AbstractProcessingHandler
      */
     private $tableName;
     /**
-     * @var array
+     * @var LogConfig
      */
     private $logConfig;
 
     /**
      * @param Connection $connection
      * @param string     $tableName
-     * @param array      $logConfig
+     * @param LogConfig  $logConfig
      * @param int        $level
      * @param boolean    $bubble
      */
-    public function __construct(Connection $connection, $tableName, array $logConfig, $level = Logger::DEBUG, $bubble = true)
+    public function __construct(
+        Connection $connection,
+        $tableName,
+        LogConfig $logConfig,
+        $level = Logger::DEBUG,
+        $bubble = true
+    )
     {
         $this->connection = $connection;
         $this->tableName = $tableName;
         $this->logConfig = $logConfig;
 
         parent::__construct($level, $bubble);
-
-        $this->pushProcessor(new WebProcessor());
-        $this->pushProcessor(new WebExtendedProcessor());
     }
 
     public function isHandling(array $record)
     {
-        return $this->isLoggable($record);
+        return $this->logConfig->isLoggable($record);
     }
 
 
@@ -57,6 +59,7 @@ class DoctrineDBALHandler extends AbstractProcessingHandler
     {
         $record = $record['formatted'];
 
+        // no need to be stored
         unset($record['level_name']);
 
         try {
@@ -72,27 +75,4 @@ class DoctrineDBALHandler extends AbstractProcessingHandler
     {
         return new NormalizerFormatter('U');
     }
-
-    /**
-     * @param array $record
-     *
-     * @return bool
-     */
-    protected function isLoggable(array $record)
-    {
-        if (!isset($record['channel'])) {
-            return false;
-        }
-
-        if (!isset($this->logConfig[$record['level']])) {
-            return false;
-        }
-
-        if (is_null($this->logConfig[$record['level']])) {
-            return true;
-        }
-
-        return in_array($record['channel'], $this->logConfig[$record['level']]);
-    }
-
 }

@@ -2,6 +2,8 @@
 
 namespace BiteCodes\MonologUIBundle\Processor;
 
+use Symfony\Component\HttpFoundation\RequestStack;
+
 class WebExtendedProcessor
 {
     /**
@@ -20,15 +22,21 @@ class WebExtendedProcessor
     protected $getData;
 
     /**
-     * @param array $serverData
-     * @param array $postData
-     * @param array $getData
+     * @var string
      */
-    public function __construct(array $serverData = [], array $postData = [], array $getData = [])
+    protected $bodyData;
+
+    /**
+     * @param RequestStack $requestStack
+     */
+    public function __construct(RequestStack $requestStack)
     {
-        $this->serverData = $serverData ?: $_SERVER;
-        $this->postData = $postData ?: $_POST;
-        $this->getData = $getData ?: $_GET;
+        $request = $requestStack->getMasterRequest();
+
+        $this->serverData = $request->server->all();
+        $this->postData = $request->request->all();
+        $this->getData = $request->query->all();
+        $this->bodyData = $request->getContent();
     }
 
     /**
@@ -47,6 +55,7 @@ class WebExtendedProcessor
         $record['http_server'] = $this->serverData;
         $record['http_post'] = $this->postData;
         $record['http_get'] = $this->getData;
+        $record['http_body'] = $this->bodyData;
 
         return $record;
     }
