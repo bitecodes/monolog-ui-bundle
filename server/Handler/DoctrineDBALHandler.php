@@ -48,9 +48,7 @@ class DoctrineDBALHandler extends AbstractProcessingHandler
 
     public function isHandling(array $record)
     {
-        $is = $this->logConfig->isLoggable($record);
-
-        return $is;
+        return $this->logConfig->isLoggable($record);
     }
 
 
