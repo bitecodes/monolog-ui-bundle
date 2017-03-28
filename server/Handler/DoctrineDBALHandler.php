@@ -2,9 +2,10 @@
 
 namespace BiteCodes\MonologUIBundle\Handler;
 
-use BiteCodes\MonologUIBundle\Formatter\NormalizerFormatter;
 use BiteCodes\MonologUIBundle\Service\LogConfig;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Type;
+use Monolog\Formatter\NormalizerFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
@@ -63,7 +64,13 @@ class DoctrineDBALHandler extends AbstractProcessingHandler
         unset($record['level_name']);
 
         try {
-            $this->connection->insert($this->tableName, $record);
+            $this->connection->insert($this->tableName, $record, [
+                'context'     => Type::JSON_ARRAY,
+                'extra'       => Type::JSON_ARRAY,
+                'http_server' => Type::JSON_ARRAY,
+                'http_get'    => Type::JSON_ARRAY,
+                'http_post'   => Type::JSON_ARRAY,
+            ]);
         } catch (\Exception $e) {
         }
     }
