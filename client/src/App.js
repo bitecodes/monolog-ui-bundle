@@ -28,11 +28,9 @@ export class App extends Component {
             <LocaleProvider locale={enUS}>
                 <Router>
                     <Layout style={{minHeight: '100%'}}>
-                        <Content style={{padding: '0 50px'}}>
-                            <Layout style={{background: '#fff'}}>
-                                <Route breadcrumbName=":id" path={parser.pathname + ':id'} component={LogDetail}/>
-                                <Route breadcrumbName="Home" exact path={parser.pathname} component={LogList}/>
-                            </Layout>
+                        <Content style={{padding: '20px 50px'}}>
+                            <Route breadcrumbName=":id" path={parser.pathname + ':id'} component={LogDetail}/>
+                            <Route breadcrumbName="Home" exact path={parser.pathname} component={LogList}/>
                         </Content>
                     </Layout>
                 </Router>

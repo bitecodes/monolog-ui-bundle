@@ -143,7 +143,8 @@ export default class LogTable extends Component {
                 pagination={pagination}
                 onChange={this.onTableChange}
                 loading={this.props.loading}
-                size='small'
+                size='middle'
+                bordered={true}
                 title={() => (
                     <Row>
                         <Col span={8}>

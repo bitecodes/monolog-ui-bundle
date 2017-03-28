@@ -10,6 +10,14 @@ body {
     font-family: sans-serif;
 }
 
+.ant-table {
+    background: #fff;
+}
+
+.ant-table-title {
+    top: 0;
+}
+
 table.log-detail {
     border-collapse: collapse;
     border-spacing: 0;

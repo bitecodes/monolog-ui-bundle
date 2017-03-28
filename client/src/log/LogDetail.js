@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Observable} from "rxjs/bundles/Rx";
-import {Button, Spin} from 'antd';
+import {Button, Layout, Spin} from 'antd';
 import {Link} from 'react-router-dom';
 import LogLevelTag from './LogLevelTag';
 import moment from 'moment';
@@ -46,58 +46,60 @@ export default class LogDetail extends Component {
 
         return (
             <Spin spinning={this.state.loading}>
-                <Link to={parser.pathname}>
-                    <Button icon="left">Back</Button>
-                </Link>
-                { log ? (
-                    <table className="log-detail">
-                        <tbody>
-                        <tr>
-                            <td>Message</td>
-                            <td>
-                                <strong>{log.message}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Date</td>
-                            <td>
-                                {logDate.format('DD.MM.YYYY h:mm:ss')} - {logDate.fromNow()}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Level</td>
-                            <td>
-                                <LogLevelTag level={log.level}></LogLevelTag>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Channel</td>
-                            <td>{log.channel}</td>
-                        </tr>
-                        <tr>
-                            <td>POST</td>
-                            <td>{this.renderObject(log.postData)}</td>
-                        </tr>
-                        <tr>
-                            <td>GET</td>
-                            <td>{this.renderObject(log.getData)}</td>
-                        </tr>
-                        <tr>
-                            <td>Server</td>
-                            <td>{this.renderObject(log.serverData)}</td>
-                        </tr>
-                        <tr>
-                            <td>Context</td>
-                            <td>{this.renderObject(log.context)}</td>
-                        </tr>
-                        <tr>
-                            <td>Extra</td>
-                            <td>{this.renderObject(log.extra)}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                ) : null
-                };
+                <Layout.Content style={{background: '#fff', minHeight: '500px'}}>
+                    <Link to={parser.pathname}>
+                        <Button icon="left" style={{margin: '10px 10px 0px'}}>Back</Button>
+                    </Link>
+                    { log ? (
+                        <table className="log-detail">
+                            <tbody>
+                            <tr>
+                                <td>Message</td>
+                                <td>
+                                    <strong>{log.message}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td>
+                                    {logDate.format('DD.MM.YYYY h:mm:ss')} - {logDate.fromNow()}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Level</td>
+                                <td>
+                                    <LogLevelTag level={log.level}></LogLevelTag>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Channel</td>
+                                <td>{log.channel}</td>
+                            </tr>
+                            <tr>
+                                <td>POST</td>
+                                <td>{this.renderObject(log.postData)}</td>
+                            </tr>
+                            <tr>
+                                <td>GET</td>
+                                <td>{this.renderObject(log.getData)}</td>
+                            </tr>
+                            <tr>
+                                <td>Server</td>
+                                <td>{this.renderObject(log.serverData)}</td>
+                            </tr>
+                            <tr>
+                                <td>Context</td>
+                                <td>{this.renderObject(log.context)}</td>
+                            </tr>
+                            <tr>
+                                <td>Extra</td>
+                                <td>{this.renderObject(log.extra)}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    ) : null
+                    };
+                </Layout.Content>
             </Spin>
         )
     }
