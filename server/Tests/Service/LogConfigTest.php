@@ -23,7 +23,7 @@ class LogConfigTest extends \PHPUnit_Framework_TestCase
             Logger::CRITICAL  => null,
             Logger::ERROR     => null,
             Logger::WARNING   => null,
-            Logger::NOTICE    => null,
+            Logger::NOTICE    => [],
             Logger::INFO      => ['event'],
             Logger::DEBUG     => [],
         ]);
@@ -37,10 +37,12 @@ class LogConfigTest extends \PHPUnit_Framework_TestCase
             'missing channel'                    => [false, ['level' => Logger::NOTICE]],
             'missing level'                      => [false, ['channel' => 'event']],
             'unknown level'                      => [false, ['channel' => 'event', 'level' => 42]],
+            'log nothing when not in array'      => [false, ['channel' => 'security', 'level' => Logger::INFO]],
+            'log nothing when empty array'       => [false, ['channel' => 'event', 'level' => Logger::DEBUG]],
             'log everything when null'           => [true, ['channel' => 'event', 'level' => Logger::EMERGENCY]],
-            'log nothing when empty array'       => [true, ['channel' => 'event', 'level' => Logger::EMERGENCY]],
-            'log channel for given level'        => [true, ['channel' => 'event', 'level' => Logger::INFO]],
-            'log channel for given level and up' => [true, ['channel' => 'event', 'level' => Logger::NOTICE]],
+            'log for given level'                => [true, ['channel' => 'event', 'level' => Logger::INFO]],
+            'log for level and up (empty array)' => [true, ['channel' => 'event', 'level' => Logger::NOTICE]],
+            'log for level and up (null)'        => [true, ['channel' => 'event', 'level' => Logger::WARNING]],
         ];
     }
 }

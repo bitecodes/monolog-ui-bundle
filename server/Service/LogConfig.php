@@ -80,8 +80,8 @@ class LogConfig
      */
     protected function levelHandlesChannel(array $record)
     {
-        return count(array_filter($this->config, function ($channels, $level) use ($record) {
-            return $level >= $record['level'] && in_array($record['channel'], is_array($channels) ? $channels : []);
+        return count(array_filter(array_reverse($this->config, true), function ($channels, $level) use ($record) {
+            return $level <= $record['level'] && in_array($record['channel'], is_array($channels) ? $channels : []);
         }, ARRAY_FILTER_USE_BOTH)) > 0;
     }
 }
