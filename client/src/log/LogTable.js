@@ -41,7 +41,7 @@ export default class LogTable extends Component {
         return () => {
             Observable
                 .ajax({
-                    url: this.context.serverUrl + '/' + log.id,
+                    url: this.context.serverUrl + log.id,
                     method: 'DELETE',
                     body: {similar: this.state.isGrouped}
                 })
